@@ -5,6 +5,8 @@ import AboutUs from "@/app/components/AboutUs";
 import OurServices from "@/app/components/OurServices";
 import WhatWeDo from "@/app/components/WhatWeDo";
 import TrustedBy from "@/app/components/TrustedBy";
+import Testimonials from "@/app/components/Testimonials";
+import Footer from "@/app/components/Footer";
 
 export default function Home() {
   return (
@@ -15,6 +17,8 @@ export default function Home() {
       <OurServices />
       <WhatWeDo />
       <TrustedBy />
+      <Testimonials />
+      <Footer />
     </main>
   );
 }
