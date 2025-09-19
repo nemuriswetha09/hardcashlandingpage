@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { Phone, MapPin, Search, Handshake } from "lucide-react";
 
