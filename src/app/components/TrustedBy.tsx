@@ -16,10 +16,12 @@ export default function TrustedBy() {
   return (
     <section
       id="trustedby"
-      className="py-20 bg-gray-950 text-white text-center overflow-hidden"
+      className="py-20 hero-section text-foreground text-center overflow-hidden"
     >
-      <h2 className="text-3xl font-bold mb-8">Trusted By Our Beloved Clients</h2>
-      <p className="max-w-xl mx-auto text-gray-400 mb-10">
+      <h2 className="text-3xl font-bold mb-8">
+        Trusted By Our Beloved Clients
+      </h2>
+      <p className="max-w-xl mx-auto text-gray-400 dark:text-gray-300 mb-10">
         Integrity & Quality Service has helped us gain trust of major banks &
         NBFCs. Join them and minimize debt today.
       </p>
@@ -30,7 +32,7 @@ export default function TrustedBy() {
           {banks.concat(banks).map((bank, idx) => (
             <div
               key={idx}
-              className="min-w-[150px] h-16 bg-gray-800 flex items-center justify-center rounded-lg px-4"
+              className="min-w-[150px] h-16 trusted-card-bg flex items-center justify-center rounded-lg px-4"
             >
               <img
                 src={bank.logo}
@@ -41,21 +43,6 @@ export default function TrustedBy() {
           ))}
         </div>
       </div>
-
-      {/* Tailwind animation */}
-      <style jsx global>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .animate-scroll {
-          animation: scroll 25s linear infinite;
-        }
-      `}</style>
     </section>
   );
 }

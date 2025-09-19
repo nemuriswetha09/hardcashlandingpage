@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255; /* Pure white for light mode */
+  --hero-accent-rgb: 250, 204, 21; /* Yellow-400 for accents */
+  --hero-overlay-opacity: 0; /* Slightly darker overlay for light mode to ensure text readability */
+}
+
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 0, 0, 0; /* Pure black for dark mode */
+  --hero-accent-rgb: 234, 179, 8; /* Yellow-500 for dark mode */
+  --hero-overlay-opacity: 0.5; /* Darker overlay for dark mode */
+}
+
+/* Apply to body */
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* HeroSection specific styles */
+.hero-section {
+  background: rgb(var(--background-rgb));
+}
+
+/* Smooth transitions for theme changes */
+body, body * {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+/* Navbar specific transitions */
+nav, nav * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(229, 231, 235);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgb(31, 41, 55);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(156, 163, 175);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(107, 114, 128);
+}
+
+/* Reusable foreground class */
+.text-foreground {
+  color: rgb(var(--foreground-rgb));
+}
+
+/* Reusable accent class for yellow highlights */
+.text-accent {
+  color: rgb(var(--hero-accent-rgb));
+}
+
+.bg-accent {
+  background-color: rgb(var(--hero-accent-rgb));
+}
+
+.border-accent {
+  border-color: rgb(var(--hero-accent-rgb));
+}
