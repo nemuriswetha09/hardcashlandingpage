@@ -161,7 +161,7 @@ export default function Chatbot() {
         </button>
         
         {/* "Here to Assist You" text positioned to the right of the button */}
-        <span className="font-bold animate-pulse text-amber-100 px-3 py-2 rounded-full shadow-lg">
+        <span className="font-bold animate-pulse text-amber-400 px-3 py-2 rounded-full shadow-lg">
           Here to Assist You!
         </span>
       </div>

@@ -19,12 +19,6 @@ export default function Navbar() {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-//   const navItems = [
-//     { name: "Home", href: "/" },
-//     { name: "About Us", href: "/about" },
-//     { name: "Services", href: "/services" },
-//     { name: "Contact", href: "/contact" },
-//   ];
 
   return (
     <nav className="w-full fixed top-0 left-0 z-50 bg-[rgb(var(--background-rgb))]/80 text-foreground px-6 py-4 flex items-center justify-between backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
@@ -32,19 +26,6 @@ export default function Navbar() {
         The Hard Cash
       </Link>
 
-      {/* Desktop Navigation */}
-      {/* <ul className="hidden md:flex gap-8 font-medium">
-        {navItems.map((item) => (
-          <li key={item.name}>
-            <Link 
-              href={item.href} 
-              className="text-foreground hover:text-accent dark:hover:text-accent transition-colors duration-300"
-            >
-              {item.name}
-            </Link>
-          </li>
-        ))}
-      </ul> */}
 
       <div className="flex items-center gap-4">
         <button
