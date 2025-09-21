@@ -65,7 +65,7 @@ export default function TrustedBy() {
 
   return (
     <motion.section
-      id="trustedby"
+      
       className="py-20 dark:from-gray-900/30 to-background backdrop-blur-sm text-foreground text-center overflow-hidden"
       variants={containerVariants}
       initial="hidden"

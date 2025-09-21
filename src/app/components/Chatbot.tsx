@@ -152,6 +152,10 @@ export default function Chatbot() {
     <div>
       {/* Floating Bot Button with text on the right side */}
       <div className="fixed bottom-6 right-6 flex items-center space-x-2 z-50">
+          {/* "Here to Assist You" text positioned to the right of the button */}
+        <span className="font-bold animate-pulse text-amber-400 px-3 py-2 rounded-full shadow-lg">
+         Hi,Here to Assist You!
+        </span>
         {/* Bot button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -159,11 +163,8 @@ export default function Chatbot() {
         >
           <span className="text-xl">🤖</span>
         </button>
-        
-        {/* "Here to Assist You" text positioned to the right of the button */}
-        <span className="font-bold animate-pulse text-amber-400 px-3 py-2 rounded-full shadow-lg">
-          Here to Assist You!
-        </span>
+      
+       
       </div>
 
       {/* Chat Window */}

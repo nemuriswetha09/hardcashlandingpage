@@ -84,7 +84,7 @@ export default function AboutUs() {
   if (!mounted) return null;
 
   return (
-    <section className="hero-section text-foreground min-h-screen flex items-center py-12 sm:py-16 lg:py-20 overflow-hidden">
+    <section id="about-us" className="hero-section text-foreground min-h-screen flex items-center py-12 sm:py-16 lg:py-20 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <motion.div

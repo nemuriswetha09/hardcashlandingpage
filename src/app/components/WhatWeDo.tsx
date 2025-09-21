@@ -75,7 +75,7 @@ export default function WhatWeDo() {
   };
 
   return (
-    <section className="w-full py-20 bg-gradient-to-b from-background to-background/80 text-foreground">
+    <section   id="what-we-do" className="w-full py-20 bg-gradient-to-b from-background to-background/80 text-foreground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

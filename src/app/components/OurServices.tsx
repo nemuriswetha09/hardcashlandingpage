@@ -165,7 +165,7 @@ export default function OurServices() {
 
   return (
     <section
-      id="services"
+      id="our-services" 
       className="w-full py-24 bg-gradient-to-b from-background to-background/80 text-foreground"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
