@@ -2,7 +2,6 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { Twitter, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
   // Animation variants for container and items

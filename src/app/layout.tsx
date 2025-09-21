@@ -1,6 +1,6 @@
 import './globals.css';
 import { Providers } from '@/app/components/ThemeProvider';
-
+ import Chatbot from "./components/Chatbot";
 export default function RootLayout({
   children,
 }: {
@@ -9,7 +9,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>{children}
+                  <Chatbot />
+        </Providers>
       </body>
     </html>
   );

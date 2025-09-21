@@ -33,7 +33,7 @@ export default function HeroSection() {
           Helping businesses and individuals recover outstanding debts with
           integrity,
           <br />
-          strategy, and proven results.
+          strategy and proven results.
         </p>
 
         {/* Buttons */}

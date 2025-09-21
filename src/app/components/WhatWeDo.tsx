@@ -1,6 +1,4 @@
 "use client";
-
-import { useState, useEffect } from "react";
 import { motion, Variants } from "framer-motion";
 import { Phone, MapPin, Search, Handshake } from "lucide-react";
 
@@ -124,16 +122,6 @@ export default function WhatWeDo() {
               </div>
 
               <div className="relative z-10 text-center">
-                {/* Step Number */}
-                <motion.div
-                  className="absolute -top-4 -left-4 w-8 h-8 bg-accent rounded-full flex items-center justify-center text-foreground font-bold text-sm"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                >
-                  {index + 1}
-                </motion.div>
-
                 {/* Icon */}
                 <motion.div
                   className="mb-6 flex justify-center"
