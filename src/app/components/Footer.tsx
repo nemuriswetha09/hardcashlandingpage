@@ -139,7 +139,6 @@ export default function Footer() {
             <ul className="space-y-3">
               {[
                 "contact@thehardcash.com",
-                "+91 12345 67890",
                 "24/7 Support",
               ].map((item, idx) => (
                 <motion.li

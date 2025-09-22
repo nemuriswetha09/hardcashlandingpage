@@ -5,12 +5,13 @@ import { useState, useRef, useEffect } from "react";
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(-1);
-  const [messages, setMessages] = useState<{ sender: string; text: string }[]>([
-    { sender: "bot", text: "👋 Hi! Type 'Hi' to get started." },
+  const [messages, setMessages] = useState<{ sender: string; text: string; showButtons?: boolean }[]>([
+    { sender: "bot", text: "👋 Hi! Need Help?" },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showServiceButtons, setShowServiceButtons] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
@@ -18,13 +19,29 @@ export default function Chatbot() {
     email: "",
     phone: "",
     service: "",
+    remark: "",
   });
+
+  const services = [
+    "B2B Debt Collection",
+    "Credit Score Repair", 
+    "Skip Tracing Services",
+    "Vehicle Loan Recovery",
+    "Enforcement of SARFAESI Act",
+    "Credit Risk Management",
+    "Accounts Receivable Services",
+    "Legal Collection Services",
+    "Accounting & Bookkeeping",
+    "Background Check Services",
+    "Payment Pickups",
+    "Field Tracking System"
+  ];
 
   const questions = [
     "What's your full name?",
     "Please enter your email address:",
     "What's your phone number?",
-    "Which service do you need help with?",
+    "Please add any remarks or specific requirements:",
   ];
 
   const scrollToBottom = () => {
@@ -35,13 +52,34 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages]);
 
+  const handleServiceSelection = (service: string) => {
+    const newForm = { ...formData, service };
+    setFormData(newForm);
+    
+    setMessages((prev) => [
+      ...prev,
+      { sender: "user", text: service }
+    ]);
+    
+    setShowServiceButtons(false);
+    
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: "Great! We'll reach out to you shortly. Could you please provide your name?" }
+      ]);
+    }, 600);
+    
+    setStep(0);
+  };
+
   const handleUserResponse = (text: string) => {
     // If already submitted, don't process further inputs
     if (isSubmitted) {
       setMessages((prev) => [
         ...prev,
         { sender: "user", text },
-        { sender: "bot", text: " Our team will contact you soon!" },
+        { sender: "bot", text: "Our team will contact you soon!" },
       ]);
       setInput("");
       return;
@@ -58,11 +96,22 @@ export default function Chatbot() {
         ]);
         return;
       }
-      setMessages((prev) => [...prev, { sender: "user", text }]);
+      setMessages((prev) => [
+        ...prev, 
+        { sender: "user", text }
+      ]);
+      
       setTimeout(() => {
-        setMessages((prev) => [...prev, { sender: "bot", text: questions[0] }]);
+        setMessages((prev) => [
+          ...prev,
+          { 
+            sender: "bot", 
+            text: "Welcome to The HardCash.\n\nWe offer a range of services . Choose from the options below:",
+            showButtons: true
+          }
+        ]);
+        setShowServiceButtons(true);
       }, 600);
-      setStep(0);
       return;
     }
 
@@ -72,7 +121,7 @@ export default function Chatbot() {
         setMessages((prev) => [
           ...prev,
           { sender: "user", text },
-          { sender: "bot", text: " Please enter a valid email." },
+          { sender: "bot", text: "Please enter a valid email." },
         ]);
         return;
       }
@@ -84,13 +133,15 @@ export default function Chatbot() {
         setMessages((prev) => [
           ...prev,
           { sender: "user", text },
-          { sender: "bot", text: "please enter valid mobile number. Phone number must be exactly 10 digits." },
+          { sender: "bot", text: "Please enter valid mobile number. Phone number must be exactly 10 digits." },
         ]);
         return;
       }
       newForm.phone = text;
     }
-    if (step === 3) newForm.service = text;
+    if (step === 3) {
+      newForm.remark = text;
+    }
 
     setFormData(newForm);
     setMessages((prev) => [...prev, { sender: "user", text }]);
@@ -107,7 +158,7 @@ export default function Chatbot() {
 
   const handleSubmit = async (data: typeof formData) => {
     setIsLoading(true);
-    setIsSubmitted(true); // Mark as submitted to prevent duplicate submissions
+    setIsSubmitted(true);
     
     try {
       const scriptUrl = "https://script.google.com/macros/s/AKfycbzqvsa0yZgLX7Bo6bPL699W_eFNASpn2ZSgDRy_-UdlSj1hnUTe2yxTgYfEKJ0EKlHv/exec";
@@ -150,50 +201,73 @@ export default function Chatbot() {
 
   return (
     <div>
-      {/* Floating Bot Button with text on the right side */}
+      {/* Floating Bot Button */}
       <div className="fixed bottom-6 right-6 flex items-center space-x-2 z-50">
-          {/* "Here to Assist You" text positioned to the right of the button */}
         <span className="font-bold animate-pulse text-amber-400 px-3 py-2 rounded-full shadow-lg">
-         Hi,Here to Assist You!
+          Hi , Here to Assist You!
         </span>
-        {/* Bot button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-yellow-500 text-black p-3 rounded-full shadow-lg hover:bg-yellow-600 transition-colors"
+          className="bg-amber-500 text-white p-4 rounded-full shadow-lg hover:bg-amber-600 transition-colors"
         >
-          <span className="text-xl">🤖</span>
+          <div className="w-6 h-6 text-amber-500 flex items-center justify-center text-sm font-bold">
+            🤖
+          </div>
         </button>
-      
-       
       </div>
 
       {/* Chat Window */}
       {isOpen && (
         <div className="fixed bottom-20 right-6 bg-white text-black w-80 h-96 rounded-xl shadow-xl flex flex-col z-50 border border-gray-200">
-          <div className="bg-yellow-500 text-black font-bold p-3 rounded-t-xl flex justify-between items-center">
-            <span>Chat Assistant</span>
+          <div className="bg-slate-800 text-white font-bold p-3 rounded-t-xl flex justify-between items-center">
+            <span>Hi! chat with us</span>
             <button 
               onClick={() => setIsOpen(false)} 
-              className="text-black hover:text-gray-700 transition-colors text-lg"
+              className="text-white hover:text-gray-300 transition-colors text-lg"
             >
               ✕
             </button>
           </div>
           
           {/* Messages Container */}
-          <div className="flex-1 p-3 overflow-y-auto space-y-2 text-sm">
+          <div className="flex-1 p-3 overflow-y-auto space-y-3 text-sm">
             {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`p-2 rounded-lg max-w-[70%] ${
-                  msg.sender === "bot"
-                    ? "bg-gray-200 text-black self-start"
-                    : "bg-yellow-500 text-black self-end ml-auto"
-                }`}
-              >
-                {msg.text}
+              <div key={i}>
+                <div
+                  className={`p-3 rounded-lg max-w-[85%] ${
+                    msg.sender === "bot"
+                      ? "bg-gray-100 text-black self-start"
+                      : "bg-yellow-500 text-white self-end ml-auto"
+                  }`}
+                >
+                  {msg.text.split('\n').map((line, idx) => (
+                    <div key={idx}>{line}</div>
+                  ))}
+                </div>
+                
+                {/* Service Selection Buttons */}
+                {msg.showButtons && showServiceButtons && (
+                  <div className="mt-3 space-y-2">
+                    <div className="grid grid-cols-1 gap-2">
+                      {services.map((service, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => handleServiceSelection(service)}
+                          className="bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded-lg text-xs hover:bg-gray-50 transition-colors text-left"
+                        >
+                          {service}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                      <p className="text-xs font-medium text-gray-600 mb-2">Want to reach out to us?</p>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
+            
             {isLoading && (
               <div className="p-2 rounded-lg bg-gray-200 text-black self-start">
                 ⏳ Sending your information...
@@ -210,13 +284,13 @@ export default function Chatbot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
-                placeholder={step === -1 ? "Type 'Hi' to start..." : "Type your answer..."}
-                className="flex-1 border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                placeholder={step === -1 ? "Type 'Hi' to start..." : step === 3 ? "Add any remarks..." : "Ask something..."}
+                className="flex-1 border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-xs"
                 disabled={(step >= questions.length && isSubmitted) || isLoading}
               />
               <button
                 onClick={handleSend}
-                className="bg-yellow-500 p-2 rounded-lg hover:bg-yellow-600 disabled:bg-gray-300 transition-colors min-w-[40px] flex items-center justify-center"
+                className="bg-yellow-500 p-2 rounded-lg hover:bg-yellow-600 disabled:bg-gray-300 transition-colors min-w-[40px] flex items-center justify-center text-white"
                 disabled={(step >= questions.length && isSubmitted) || !input.trim() || isLoading}
               >
                 {isLoading ? "..." : "➤"}
