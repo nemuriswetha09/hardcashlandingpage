@@ -4,7 +4,7 @@ import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 
 export default function Footer() {
-  // Animation variants for container and items
+  // Animation variants
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -42,7 +42,7 @@ export default function Footer() {
     },
     hover: {
       y: -2,
-      color: "#3b82f6", // Matches Tailwind's accent color (e.g., blue-500)
+      color: "#3b82f6",
       transition: {
         type: "spring",
         stiffness: 300,
@@ -104,9 +104,8 @@ export default function Footer() {
             <ul className="space-y-3">
               {[
                 { href: "/", label: "Home" },
-                { href: "/about", label: "About Us" },
-                { href: "/services", label: "Services" },
-                { href: "/contact", label: "Contact" },
+                { href: "/#about-us", label: "About Us" },
+                { href: "/#our-services", label: "Services" },
               ].map((link, idx) => (
                 <motion.li key={idx} variants={linkVariants}>
                   <Link
@@ -137,18 +136,23 @@ export default function Footer() {
               Contact
             </motion.h4>
             <ul className="space-y-3">
-              {[
-                "contact@thehardcash.com",
-                "24/7 Support",
-              ].map((item, idx) => (
-                <motion.li
-                  key={idx}
-                  className="text-gray-600 dark:text-gray-400 text-sm"
-                  variants={linkVariants}
+              <motion.li
+                className="text-gray-600 dark:text-gray-400 text-sm"
+                variants={linkVariants}
+              >
+                <a
+                  href="mailto:contact@thehardcash.com"
+                  className="hover:text-accent transition-colors duration-300"
                 >
-                  {item}
-                </motion.li>
-              ))}
+                  contact@thehardcash.com
+                </a>
+              </motion.li>
+              <motion.li
+                className="text-gray-600 dark:text-gray-400 text-sm"
+                variants={linkVariants}
+              >
+                24/7 Support
+              </motion.li>
             </ul>
           </div>
         </motion.div>
