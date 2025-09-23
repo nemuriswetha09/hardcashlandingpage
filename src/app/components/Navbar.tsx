@@ -44,27 +44,23 @@ export default function Navbar() {
     { name: "What We Do", id: "what-we-do" },
   ];
 
-  // Enhanced mailto link with better mobile support
-  const mailToLink =
-    "mailto:contact@thehardcash.com?subject=Inquiry%20from%20Website&body=Hello%20Team%2C%0A%0AI%20would%20like%20to%20know%20more%20about%20your%20services.%0A%0ARegards%2C%0A";
-
-  // Enhanced contact handler with mobile optimization
+  // Enhanced contact handler with Gmail direct link for desktop
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setMobileMenuOpen(false);
     
     try {
-      // For mobile devices, ensure the mailto opens properly
       if (typeof window !== 'undefined') {
-        // Check if it's a mobile device
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
         if (isMobile) {
-          // For mobile, use window.open to ensure it works across different browsers
+          // For mobile, use standard mailto link
+          const mailToLink = "mailto:contact@thehardcash.com?subject=Inquiry%20from%20Website&body=Hello%20Team%2C%0A%0AI%20would%20like%20to%20know%20more%20about%20your%20services.%0A%0ARegards%2C%0A";
           window.open(mailToLink, '_self');
         } else {
-          // For desktop, use location.href
-          window.location.href = mailToLink;
+          // For desktop, use direct Gmail compose link
+          const gmailLink = "https://mail.google.com/mail/?view=cm&fs=1&to=contact@thehardcash.com&su=Inquiry%20from%20Website&body=Hello%20Team%2C%0A%0AI%20would%20like%20to%20know%20more%20about%20your%20services.%0A%0ARegards%2C%0A";
+          window.open(gmailLink, '_blank', 'noopener,noreferrer');
         }
       }
     } catch (error) {

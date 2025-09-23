@@ -2,8 +2,11 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Footer() {
+  const [isEmailHovered, setIsEmailHovered] = useState(false);
+
   // Animation variants
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -60,6 +63,48 @@ export default function Footer() {
         ease: "easeOut",
       },
     },
+  };
+
+  const handleEmailClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const email = "contact@thehardcash.com";
+    const subject = encodeURIComponent("Inquiry from Website Footer");
+    const body = encodeURIComponent(
+      "Hello The Hard Cash Team,\n\nI came across your website and would like to learn more about your debt management and recovery services.\n\nPlease contact me at your earliest convenience.\n\nThank you!"
+    );
+
+    try {
+      if (isMobile) {
+        // For mobile, use standard mailto link
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+      } else {
+        // For desktop, use direct Gmail compose link
+        const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
+        window.open(gmailLink, '_blank', 'noopener,noreferrer');
+      }
+    } catch (error) {
+      // Fallback: copy email to clipboard
+      const email = "contact@thehardcash.com";
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(email).then(() => {
+          alert(`Email address copied to clipboard: ${email}`);
+        }).catch(() => {
+          alert(`Please email us at: ${email}`);
+        });
+      } else {
+        alert(`Please email us at: ${email}`);
+      }
+    }
+  };
+
+  const handleEmailMouseEnter = () => {
+    setIsEmailHovered(true);
+  };
+
+  const handleEmailMouseLeave = () => {
+    setIsEmailHovered(false);
   };
 
   return (
@@ -136,15 +181,31 @@ export default function Footer() {
               Contact
             </motion.h4>
             <ul className="space-y-3">
-              <motion.li
-                className="text-gray-600 dark:text-gray-400 text-sm"
-                variants={linkVariants}
-              >
+              <motion.li variants={linkVariants}>
                 <a
-                  href="mailto:contact@thehardcash.com"
-                  className="hover:text-accent transition-colors duration-300"
+                  href="#"
+                  onClick={handleEmailClick}
+                  onMouseEnter={handleEmailMouseEnter}
+                  onMouseLeave={handleEmailMouseLeave}
+                  className={`text-gray-600 dark:text-gray-400 text-sm transition-all duration-300 relative group cursor-pointer ${
+                    isEmailHovered ? 'text-accent' : 'hover:text-accent'
+                  }`}
                 >
                   contact@thehardcash.com
+                  <motion.div
+                    className="absolute bottom-0 left-0 w-full h-0.5 bg-accent opacity-0 group-hover:opacity-100"
+                    initial={{ width: 0 }}
+                    whileHover={{
+                      width: "100%",
+                      transition: { duration: 0.3 },
+                    }}
+                  />
+                  {/* Hover underline effect */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent"
+                    animate={{ width: isEmailHovered ? "100%" : "0%" }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </a>
               </motion.li>
               <motion.li
@@ -199,7 +260,7 @@ export default function Footer() {
 
         {/* Developer Credits */}
         <motion.div
-          className="max-w-7xl mx-auto text-gray-600 dark:text-gray-400 text-sm text-center"
+          className="max-w-7xl mx-auto text-gray-600 dark:text-gray-400 text-sm text-center mt-6"
           variants={sectionVariants}
         >
           Developed by ZenBeta, crafted by Swetha & Abhishek

@@ -287,14 +287,7 @@ export default function OurServices() {
             Our team of experts is ready to help you with customized debt
             recovery solutions.
           </p>
-          <motion.button
-            variants={buttonVariants}
-            whileHover="hover"
-            whileTap="tap"
-            className="bg-accent text-foreground font-semibold py-3 px-8 rounded-lg hover:bg-accent/90 transition-colors"
-          >
-            Get Started Today
-          </motion.button>
+          
         </motion.div>
       </div>
     </section>

@@ -66,7 +66,7 @@ export default function Chatbot() {
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "Great! We'll reach out to you shortly. Could you please provide your name?" }
+        { sender: "bot", text: "Great choice! We'll reach out to you shortly. Could you please provide your name?" }
       ]);
     }, 600);
     
@@ -106,7 +106,7 @@ export default function Chatbot() {
           ...prev,
           { 
             sender: "bot", 
-            text: "Welcome to The HardCash.\n\nWe offer a range of services . Choose from the options below:",
+            text: "Welcome to The HardCash.\n\nWe offer a range of services to help your business grow. Choose from the options below:",
             showButtons: true
           }
         ]);
@@ -121,7 +121,7 @@ export default function Chatbot() {
         setMessages((prev) => [
           ...prev,
           { sender: "user", text },
-          { sender: "bot", text: "Please enter a valid email." },
+          { sender: "bot", text: "Please enter a valid email address." },
         ]);
         return;
       }
@@ -133,7 +133,7 @@ export default function Chatbot() {
         setMessages((prev) => [
           ...prev,
           { sender: "user", text },
-          { sender: "bot", text: "Please enter valid mobile number. Phone number must be exactly 10 digits." },
+          { sender: "bot", text: "Please enter a valid 10-digit mobile number." },
         ]);
         return;
       }
@@ -175,7 +175,7 @@ export default function Chatbot() {
 
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "Thanks! Our team will reach out to you soon." },
+        { sender: "bot", text: "Thank you! Our team will reach out to you soon." },
       ]);
       
     } catch (err) {
@@ -203,14 +203,14 @@ export default function Chatbot() {
     <div>
       {/* Floating Bot Button */}
       <div className="fixed bottom-6 right-6 flex items-center space-x-2 z-50">
-        <span className="font-bold animate-pulse text-amber-400 px-3 py-2 rounded-full shadow-lg">
-          Hi , Here to Assist You!
+        <span className="font-bold animate-pulse text-amber-400 px-3 py-2 rounded-full shadow-lg bg-slate-800">
+          Hi, Here to Assist You!
         </span>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="bg-amber-500 text-white p-4 rounded-full shadow-lg hover:bg-amber-600 transition-colors"
         >
-          <div className="w-6 h-6 text-amber-500 flex items-center justify-center text-sm font-bold">
+          <div className="w-6 h-6 flex items-center justify-center text-sm font-bold">
             🤖
           </div>
         </button>
@@ -220,7 +220,7 @@ export default function Chatbot() {
       {isOpen && (
         <div className="fixed bottom-20 right-6 bg-white text-black w-80 h-96 rounded-xl shadow-xl flex flex-col z-50 border border-gray-200">
           <div className="bg-slate-800 text-white font-bold p-3 rounded-t-xl flex justify-between items-center">
-            <span>Hi! chat with us</span>
+            <span>The HardCash Assistant</span>
             <button 
               onClick={() => setIsOpen(false)} 
               className="text-white hover:text-gray-300 transition-colors text-lg"
@@ -237,7 +237,7 @@ export default function Chatbot() {
                   className={`p-3 rounded-lg max-w-[85%] ${
                     msg.sender === "bot"
                       ? "bg-gray-100 text-black self-start"
-                      : "bg-yellow-500 text-white self-end ml-auto"
+                      : "bg-amber-500 text-white self-end ml-auto"
                   }`}
                 >
                   {msg.text.split('\n').map((line, idx) => (
@@ -245,15 +245,15 @@ export default function Chatbot() {
                   ))}
                 </div>
                 
-                {/* Service Selection Buttons */}
+                {/* Service Selection Buttons - Two columns layout */}
                 {msg.showButtons && showServiceButtons && (
                   <div className="mt-3 space-y-2">
-                    <div className="grid grid-cols-1 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       {services.map((service, idx) => (
                         <button
                           key={idx}
                           onClick={() => handleServiceSelection(service)}
-                          className="bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded-lg text-xs hover:bg-gray-50 transition-colors text-left"
+                          className="bg-white border border-gray-300 text-gray-700 px-2 py-2 rounded-lg text-xs hover:bg-gray-50 transition-colors text-left"
                         >
                           {service}
                         </button>
@@ -261,7 +261,7 @@ export default function Chatbot() {
                     </div>
                     
                     <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-                      <p className="text-xs font-medium text-gray-600 mb-2">Want to reach out to us?</p>
+                      <p className="text-xs font-medium text-gray-600">Want to reach out to us?</p>
                     </div>
                   </div>
                 )}
@@ -284,13 +284,13 @@ export default function Chatbot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
-                placeholder={step === -1 ? "Type 'Hi' to start..." : step === 3 ? "Add any remarks..." : "Ask something..."}
-                className="flex-1 border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 text-xs"
+                placeholder={step === -1 ? "Type 'Hi' to start..." : "Type your response..."}
+                className="flex-1 border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-xs"
                 disabled={(step >= questions.length && isSubmitted) || isLoading}
               />
               <button
                 onClick={handleSend}
-                className="bg-yellow-500 p-2 rounded-lg hover:bg-yellow-600 disabled:bg-gray-300 transition-colors min-w-[40px] flex items-center justify-center text-white"
+                className="bg-amber-500 p-2 rounded-lg hover:bg-amber-600 disabled:bg-gray-300 transition-colors min-w-[40px] flex items-center justify-center text-white"
                 disabled={(step >= questions.length && isSubmitted) || !input.trim() || isLoading}
               >
                 {isLoading ? "..." : "➤"}
