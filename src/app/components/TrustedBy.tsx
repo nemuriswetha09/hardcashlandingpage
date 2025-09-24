@@ -9,11 +9,13 @@ export default function TrustedBy() {
     { name: "Moneyview", logo: "/img/moneyview.jpg" },
     { name: "SBI", logo: "/img/SBi.jpg" },
     { name: "Axis Bank", logo: "/img/axis.jpg" },
-    { name: "Bajaj Finserv", logo: "/img/bajajfinservbank.jpg" },
     { name: "IIFL", logo: "/img/IIFL.jpg" },
     { name: "RBL Bank", logo: "/img/RBL.jpg" },
     { name: "Kissht", logo: "/img/kissht_logo.jpg" },
     { name: "South Indian Bank", logo: "/img/southindianbank.jpg" },
+    { name: "Poonawala Fincorp" , logo:"/img/poonawala.jpg"},
+    {name: "Home Credit", logo:"/img/homecredit.jpg"},
+    {name:"Bajaj Finserv", logo:"/img/bajajfinserv.jpg"},
   ];
 
   // Animation variants for container and items

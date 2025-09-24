@@ -1,11 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function HeroSection() {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Detect theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
+
+    // Check initial theme
+    checkTheme();
+
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ['class'] 
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleTalkToUs = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -65,7 +85,7 @@ export default function HeroSection() {
         <div className="flex justify-center lg:justify-start">
           <div className="w-full max-w-[500px] lg:max-w-[600px]">
             <Image
-              src="/img/logo.png"
+              src={isDarkMode ? "/img/logo.jpg" : "/img/logolightmode.jpg"}
               alt="The Hard Cash Logo"
               width={500}
               height={500}
@@ -93,32 +113,37 @@ export default function HeroSection() {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 lg:justify-start justify-center">
-            <button
-              onClick={handleTalkToUs}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onMouseDown={handleMouseDown}
-              onMouseUp={handleMouseUp}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-              className={`relative border-2 border-accent font-semibold py-4 px-8 rounded-lg transition-all duration-200 cursor-pointer text-lg
-                ${
-                  isButtonActive 
-                    ? 'bg-amber-500 text-black shadow-inner' 
-                    : isButtonHovered 
-                    ? 'bg-black text-accent shadow-lg' 
-                    : 'bg-black text-accent'
-                }
-                hover:bg-black hover:text-accent hover:shadow-lg
-                active:bg-amber-500 active:text-black active:shadow-inner
-                focus:outline-none focus:ring-4 focus:ring-accent focus:ring-opacity-50
-                transform transition-all duration-200 ease-in-out
-              `}
-            >
-              <span className="relative z-10 transition-colors duration-200">
-                Talk to Us
-              </span>
-            </button>
+          <button
+  onClick={handleTalkToUs}
+  className={`relative font-semibold py-4 px-10 rounded-xl cursor-pointer text-lg overflow-hidden group
+    ${isButtonActive ? "scale-95" : "scale-100"}
+    transition-all duration-300 ease-out
+  `}
+  onMouseEnter={() => setIsButtonHovered(true)}
+  onMouseLeave={() => {
+    setIsButtonHovered(false);
+    setIsButtonActive(false);
+  }}
+  onMouseDown={() => setIsButtonActive(true)}
+  onMouseUp={() => setIsButtonActive(false)}
+  onTouchStart={() => setIsButtonActive(true)}
+  onTouchEnd={() => setIsButtonActive(false)}
+>
+  {/* Shiny moving background */}
+  <span
+    className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 
+               opacity-90 group-hover:opacity-100 blur-sm transition duration-500 animate-gradient-x"
+  ></span>
+
+  {/* Glow ring effect */}
+  <span className="absolute inset-0 rounded-xl border border-amber-400 group-hover:shadow-[0_0_20px_rgba(251,191,36,0.8)] transition duration-500"></span>
+
+  {/* Button text */}
+  <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">
+    Talk to Us
+  </span>
+</button>
+
           </div>
         </div>
       </div>

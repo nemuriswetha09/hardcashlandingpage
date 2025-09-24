@@ -87,7 +87,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-xl sm:text-2xl font-bold text-accent flex-shrink-0">
           <Image
-            src="/img/thc-gold.png"
+            src="/img/logo.jpg"
             alt="The Hard Cash Logo"
             width={32}
             height={32}
