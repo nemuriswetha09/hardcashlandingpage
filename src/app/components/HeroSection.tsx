@@ -84,20 +84,23 @@ export default function HeroSection() {
         {/* Right side - Content */}
         <div className="text-center lg:text-left text-foreground mt-2 lg:mt-0">
           {/* Main heading */}
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-      <Typewriter
-        words={[
-          "Debt Management & Recovery Services with Tailored Solutions",
-          "Empowering Your Financial Journey with Sustainable Solutions",
-        ]}
-        loop={true}            // keeps shuffling infinitely
-        cursor
-        cursorStyle="|"
-        typeSpeed={50}         // typing speed
-        deleteSpeed={30}       // deleting speed
-        delaySpeed={2000}      // pause between sentences
-      />
-    </h2>
+         <h2 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+  <span className="text-amber-300">
+    <Typewriter
+      words={[
+        "Debt Management & Recovery Services with Tailored Solutions",
+        "Empowering Your Financial Journey with Sustainable Solutions",
+      ]}
+      loop={true}            // keeps shuffling infinitely
+      cursor
+      cursorStyle="|"
+      typeSpeed={50}         // typing speed
+      deleteSpeed={30}       // deleting speed
+      delaySpeed={2000}      // pause between sentences
+    />
+  </span>
+</h2>
+
 
           <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-gray-400 dark:text-gray-300 mb-6 lg:mb-10 leading-relaxed">
             Helping businesses and individuals recover outstanding debts with
