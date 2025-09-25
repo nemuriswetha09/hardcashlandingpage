@@ -85,16 +85,33 @@ export default function Navbar() {
         className="w-full fixed top-0 left-0 z-50 bg-[rgb(var(--background-rgb))]/90 text-foreground px-4 sm:px-6 py-3 flex items-center justify-between backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm"
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-xl sm:text-2xl font-bold text-accent flex-shrink-0">
-          <Image
-            src="/img/logo.jpg"
-            alt="The Hard Cash Logo"
-            width={32}
-            height={32}
-            className="w-8 h-8 object-contain"
-          />
-          The Hard Cash
-        </Link>
+        {/* Logo */}
+{/* Logo */}
+<Link
+  href="/"
+  className="flex items-center gap-2 text-xl sm:text-2xl font-bold text-accent flex-shrink-0"
+>
+  {mounted && theme === "dark" ? (
+    <Image
+      src="/img/logo.jpg"  // dark mode logo
+      alt="The Hard Cash Logo Dark"
+      width={200}               // increase width
+      height={60}               // keep aspect ratio
+      priority                  // load faster
+      className="h-16 w-auto object-contain" // bigger + no blur
+    />
+  ) : (
+    <Image
+      src="/img/logolightmode.jpg" // light mode logo
+      alt="The Hard Cash Logo Light"
+      width={200}
+      height={60}
+      priority
+      className="h-16 w-auto object-contain"
+    />
+  )}
+  <span className="hidden sm:inline">The Hard Cash</span>
+</Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8 ml-8">
