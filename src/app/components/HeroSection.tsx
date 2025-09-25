@@ -7,30 +7,47 @@ export default function HeroSection() {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [displayedText, setDisplayedText] = useState(""); // For typing effect
+
+  const fullText =
+    "Debt Management & Recovery Services with Tailored Solutions";
 
   // Detect theme changes
   useEffect(() => {
     const checkTheme = () => {
-      setIsDarkMode(document.documentElement.classList.contains('dark'));
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
     };
 
-    // Check initial theme
     checkTheme();
 
-    // Watch for theme changes
     const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { 
-      attributes: true, 
-      attributeFilter: ['class'] 
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
     });
 
     return () => observer.disconnect();
   }, []);
 
+  // Typewriter effect
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setDisplayedText(fullText.slice(0, index + 1));
+      index++;
+      if (index === fullText.length) {
+        clearInterval(interval);
+      }
+    }, 80); // typing speed
+    return () => clearInterval(interval);
+  }, []);
+
   const handleTalkToUs = (e: React.MouseEvent) => {
     e.preventDefault();
-    
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
     const email = "contact@thehardcash.com";
     const subject = encodeURIComponent("Inquiry about Debt Management Services");
     const body = encodeURIComponent(
@@ -38,38 +55,11 @@ export default function HeroSection() {
     );
 
     if (isMobile) {
-      // For mobile, use standard mailto
       window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
     } else {
-      // For desktop, use direct Gmail link to avoid account selection
       const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
-      window.open(gmailLink, '_blank', 'noopener,noreferrer');
+      window.open(gmailLink, "_blank", "noopener,noreferrer");
     }
-  };
-
-  const handleMouseEnter = () => {
-    setIsButtonHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsButtonHovered(false);
-    setIsButtonActive(false);
-  };
-
-  const handleMouseDown = () => {
-    setIsButtonActive(true);
-  };
-
-  const handleMouseUp = () => {
-    setIsButtonActive(false);
-  };
-
-  const handleTouchStart = () => {
-    setIsButtonActive(true);
-  };
-
-  const handleTouchEnd = () => {
-    setIsButtonActive(false);
   };
 
   return (
@@ -97,12 +87,10 @@ export default function HeroSection() {
 
         {/* Right side - Content */}
         <div className="text-center lg:text-left text-foreground">
-          {/* Main heading */}
+          {/* Main heading with typing effect */}
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Debt Management &<br />
-            <span className="text-accent">
-              Recovery Services with Tailored Solutions
-            </span>
+            <span className="text-accent">{displayedText}</span>
+            <span className="animate-pulse">|</span>
           </h2>
 
           {/* Description */}
@@ -113,37 +101,36 @@ export default function HeroSection() {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 lg:justify-start justify-center">
-          <button
-  onClick={handleTalkToUs}
-  className={`relative font-semibold py-4 px-10 rounded-xl cursor-pointer text-lg overflow-hidden group
-    ${isButtonActive ? "scale-95" : "scale-100"}
-    transition-all duration-300 ease-out
-  `}
-  onMouseEnter={() => setIsButtonHovered(true)}
-  onMouseLeave={() => {
-    setIsButtonHovered(false);
-    setIsButtonActive(false);
-  }}
-  onMouseDown={() => setIsButtonActive(true)}
-  onMouseUp={() => setIsButtonActive(false)}
-  onTouchStart={() => setIsButtonActive(true)}
-  onTouchEnd={() => setIsButtonActive(false)}
->
-  {/* Shiny moving background */}
-  <span
-    className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 
-               opacity-90 group-hover:opacity-100 blur-sm transition duration-500 animate-gradient-x"
-  ></span>
+            <button
+              onClick={handleTalkToUs}
+              className={`relative font-semibold py-4 px-10 rounded-xl cursor-pointer text-lg overflow-hidden group
+                ${isButtonActive ? "scale-95" : "scale-100"}
+                transition-all duration-300 ease-out animate-pulse
+              `}
+              onMouseEnter={() => setIsButtonHovered(true)}
+              onMouseLeave={() => {
+                setIsButtonHovered(false);
+                setIsButtonActive(false);
+              }}
+              onMouseDown={() => setIsButtonActive(true)}
+              onMouseUp={() => setIsButtonActive(false)}
+              onTouchStart={() => setIsButtonActive(true)}
+              onTouchEnd={() => setIsButtonActive(false)}
+            >
+              {/* Shiny moving background */}
+              <span
+                className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 
+                           opacity-90 group-hover:opacity-100 blur-sm transition duration-500 animate-gradient-x"
+              ></span>
 
-  {/* Glow ring effect */}
-  <span className="absolute inset-0 rounded-xl border border-amber-400 group-hover:shadow-[0_0_20px_rgba(251,191,36,0.8)] transition duration-500"></span>
+              {/* Glow ring effect */}
+              <span className="absolute inset-0 rounded-xl border border-amber-400 group-hover:shadow-[0_0_25px_rgba(251,191,36,0.9)] transition duration-500 animate-ping"></span>
 
-  {/* Button text */}
-  <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">
-    Talk to Us
-  </span>
-</button>
-
+              {/* Button text */}
+              <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">
+                Talk to Us
+              </span>
+            </button>
           </div>
         </div>
       </div>
