@@ -263,7 +263,7 @@ export default function Footer() {
           className="max-w-7xl mx-auto text-gray-600 dark:text-gray-400 text-sm text-center mt-6"
           variants={sectionVariants}
         >
-          Developed by ZenBeta, crafted by Swetha & Abhishek
+          Developed by ZenBeta Technologies
         </motion.div>
       </div>
 

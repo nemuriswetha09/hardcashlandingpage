@@ -1,7 +1,6 @@
 "use client";
 
 import { Typewriter } from "react-simple-typewriter";
-
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
@@ -9,10 +8,6 @@ export default function HeroSection() {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [displayedText, setDisplayedText] = useState("");
-
-  const fullText =
-    "Debt Management & Recovery Services with Tailored Solutions";
 
   // Detect theme
   useEffect(() => {
@@ -26,17 +21,6 @@ export default function HeroSection() {
       attributeFilter: ["class"],
     });
     return () => observer.disconnect();
-  }, []);
-
-  // Typewriter effect
-  useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      setDisplayedText(fullText.slice(0, index + 1));
-      index++;
-      if (index === fullText.length) clearInterval(interval);
-    }, 80);
-    return () => clearInterval(interval);
   }, []);
 
   const handleTalkToUs = (e: React.MouseEvent) => {
@@ -81,55 +65,59 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Right side - Content */}
-        <div className="text-center lg:text-left text-foreground mt-2 lg:mt-0">
-          {/* Main heading */}
-         <h2 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-  <span className="text-amber-300">
-    <Typewriter
-      words={[
-        "Debt Management & Recovery Services with Tailored Solutions",
-        "Empowering Your Financial Journey with Sustainable Solutions",
-      ]}
-      loop={true}            // keeps shuffling infinitely
-      cursor
-      cursorStyle="|"
-      typeSpeed={50}         // typing speed
-      deleteSpeed={30}       // deleting speed
-      delaySpeed={2000}      // pause between sentences
-    />
-  </span>
-</h2>
-
-
-          <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-gray-400 dark:text-gray-300 mb-6 lg:mb-10 leading-relaxed">
-            Helping businesses and individuals recover outstanding debts with
-            integrity, strategy, and proven results.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 lg:justify-start justify-center">
-            <button
-              onClick={handleTalkToUs}
-              className={`relative font-semibold py-3 sm:py-4 px-8 sm:px-10 rounded-xl cursor-pointer text-base sm:text-lg overflow-hidden group
-                ${isButtonActive ? "scale-95" : "scale-100"}
-                transition-all duration-300 ease-out animate-pulse
-              `}
-              onMouseEnter={() => setIsButtonHovered(true)}
-              onMouseLeave={() => {
-                setIsButtonHovered(false);
-                setIsButtonActive(false);
-              }}
-              onMouseDown={() => setIsButtonActive(true)}
-              onMouseUp={() => setIsButtonActive(false)}
-              onTouchStart={() => setIsButtonActive(true)}
-              onTouchEnd={() => setIsButtonActive(false)}
-            >
-              <span className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 opacity-90 group-hover:opacity-100 blur-sm transition duration-500 animate-gradient-x"></span>
-              <span className="absolute inset-0 rounded-xl border border-amber-400 group-hover:shadow-[0_0_25px_rgba(251,191,36,0.9)] transition duration-500 animate-ping"></span>
-              <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">
-                Talk to Us
-              </span>
-            </button>
+       {/* Right side - Content */}
+<div className="text-center lg:text-left text-foreground mt-2 lg:mt-0 grid grid-rows-[auto_1fr] gap-8 lg:gap-12">
+  {/* Typewriter section */}
+  <div className="min-h-[120px] sm:min-h-[140px] lg:min-h-[160px]">
+    <h2 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
+      <span className="text-amber-300 inline-block w-full min-h-[1.2em]">
+        <Typewriter
+          words={[
+            "Debt Management & Recovery Services with Tailored Solutions",
+            "Empowering Your Financial Journey with Sustainable Solutions",
+          ]}
+          loop={true}
+          cursor
+          cursorStyle="|"
+          typeSpeed={50}
+          deleteSpeed={30}
+          delaySpeed={2000}
+        />
+      </span>
+    </h2>
+  </div>
+  
+  {/* Fixed content below */}
+  <div className="flex flex-col justify-center">
+    <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-gray-400 dark:text-gray-300 mb-6 lg:mb-10 leading-relaxed">
+      Helping businesses and individuals recover outstanding debts with
+      integrity, strategy, and proven results.
+    </p>
+    
+            <div className="flex flex-col sm:flex-row gap-4 lg:justify-start justify-center">
+              <button
+                onClick={handleTalkToUs}
+                className={`relative font-semibold py-3 sm:py-4 px-8 sm:px-10 rounded-xl cursor-pointer text-base sm:text-lg overflow-hidden group
+                  ${isButtonActive ? "scale-95" : "scale-100"}
+                  transition-all duration-300 ease-out animate-pulse
+                `}
+                onMouseEnter={() => setIsButtonHovered(true)}
+                onMouseLeave={() => {
+                  setIsButtonHovered(false);
+                  setIsButtonActive(false);
+                }}
+                onMouseDown={() => setIsButtonActive(true)}
+                onMouseUp={() => setIsButtonActive(false)}
+                onTouchStart={() => setIsButtonActive(true)}
+                onTouchEnd={() => setIsButtonActive(false)}
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 opacity-90 group-hover:opacity-100 blur-sm transition duration-500 animate-gradient-x"></span>
+                <span className="absolute inset-0 rounded-xl border border-amber-400 group-hover:shadow-[0_0_25px_rgba(251,191,36,0.9)] transition duration-500 animate-ping"></span>
+                <span className="relative z-10 text-black group-hover:text-white transition-colors duration-300">
+                  Talk to Us
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
